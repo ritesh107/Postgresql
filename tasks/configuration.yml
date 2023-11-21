@@ -1,0 +1,46 @@
+    - name: "Create db user"
+      ansible.builtin.postgresql_user:
+        state: present
+        name: "{{ item.db_user }}"
+        password: "{{ item.db_password }}"
+      loop: "{{ User_details }}"
+      become_user: postgres
+    
+    - name: "Create postgreql database"
+      postgresql_db:
+        state: present
+        name: "{{ item }}"
+      with_items: "{{ db_name }}"
+      become: true
+      become_user: postgres
+
+    - name: "Allow md5 connection for the db user"
+      ansible.builtin.postgresql_pg_hba:
+        dest: "{{ postgresql_init_path }}"
+        contype: host
+        databases: all
+        method: md5
+        users: "{{ item.db_user }}"
+        create: true
+      loop: "{{ User_details }}"
+      become_user: postgres
+      notify: Restart_postgresql
+    
+    - name: Change listen_addresses in postgresql.conf
+      ansible.builtin.replace:
+        path: "{{ postgresql_conf_file_path }}"
+        regexp: "{{ regexp_for_listen_address }}"
+        replace: "{{ listen_addresses }}"
+        backup: yes
+      notify: Restart_postgresql
+
+    - name: Grant db users access to databases
+      community.postgresql.postgresql_privs:
+        type: database
+        database: devops-db
+        roles: "{{ item.db_user }}"
+        grant_option: false
+        privs: all
+      loop: "{{ User_details }}"
+      become: true
+      become_user: postgres

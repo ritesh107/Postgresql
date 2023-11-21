@@ -1,0 +1,6 @@
+---
+# defaults file for .
+postgresql_init_path: "/var/lib/pgsql/data/pg_hba.conf"
+postgresql_conf_file_path: "/var/lib/pgsql/data/postgresql.conf"
+regexp_for_listen_address: '^#?(\s*listen_addresses\s*=\s*).*$'
+listen_addresses: "listen_addresses = '*'"

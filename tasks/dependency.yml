@@ -1,0 +1,31 @@
+---
+- name: Install python dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ dependencies_name }}"
+  # - name: Install packages
+  #   ansible.builtin.yum:
+  #     name: 
+  #      - postgresql
+  #      - postgresql-server
+  #      - 
+  #     state: present
+# - name: packages | add dependencies
+#   yum:
+#     name: "{{ item }}"
+#     state: present
+#   loop: "{{ package_dependencies }}"
+#   notify: Update_Repository
+
+# - name: Update handler now
+#   meta: flush_handlers
+
+# Install Ansible required dependencies
+
+
+# # Install psycopg2 Python package
+# - name: Install psycopg2 Python package
+#   pip:
+#     name: "{{ python_binary }}"
+#     state: present

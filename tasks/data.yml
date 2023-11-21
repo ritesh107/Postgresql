@@ -1,0 +1,42 @@
+---
+    - name: Insert data into employees table
+      ansible.builtin.postgresql_query:
+        login_user: devops
+        login_password: 987654321
+        login_db: devops-db
+        query: |
+          INSERT INTO employees (id, name, department)
+          VALUES
+          (1, 'NIkhil', 'IT'),
+          (2, 'Abhi', 'HR'),
+          (3, 'Kumar', 'Finance');
+
+
+#     - name: Insert data into table
+      
+#         db: mydatabase
+#         login_user: myuser
+#         login_password: mypassword
+#         query: "INSERT INTO mytable (column1, column2) VALUES ('value1', 'value2')"
+# # - name: Run SQL file to insert data into PostgreSQL database
+# #   ansible.builtin.postgresql_query:
+# #     login_host: 44.202.253.58
+# #     login_user: devops
+# #     login_password: 987654321
+# #     login_db: devops-db
+# #     state: query
+# #     port: 5432
+# #     path: "files/data.sql"
+
+#   # - name: Connect to default database and create a user with super prvileges
+#   #   postgresql_user:
+#   #     name: dbadmin
+#   #     password: dbadmin1234
+#   #     role_attr_flags: CREATEDB,SUPERUSER,CREATEROLE,LOGIN
+#   # - name: Create a new database with name "testdatabase"
+#   #   postgresql_db:
+#   #     login_host: 44.202.253.58
+#   #     login_user: dbadmin
+#   #     login_password: dbadmin1234
+#   #     port: 5432
+#   #     name: testdatabase

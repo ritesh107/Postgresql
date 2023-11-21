@@ -1,0 +1,21 @@
+---
+
+- name: dependency Installation
+  import_tasks: dependency.yml
+  tags: install_dependency
+
+# tasks file for psql_setup
+- name: psql_installation
+  import_tasks: red_hat.yml
+  tags: install_psql
+
+# User & Database
+- name: Configure User And Database
+  import_tasks: configuration.yml
+  tags: setup_db
+
+# - name: Add Data
+#   import_tasks: data.yml
+#   tags: insert_data
+
+...
